@@ -8,7 +8,7 @@ import json
 
 load_dotenv()
 
-URI = "https://localhost:8888"
+URI = "https://localhost:8888/"
 SCOPE = "user-library-read"
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
