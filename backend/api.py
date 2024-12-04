@@ -8,7 +8,7 @@ import json
 
 load_dotenv()
 
-URI = "https://localhost:8888/"
+URI = "https://localhost:8888"
 SCOPE = "user-library-read"
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
@@ -18,14 +18,8 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     scope=SCOPE
 ))
 
-# kendrick_uri = "spotify:artist:2YZyLoL8N0Wb9xBt1NhZWg"
-# results = sp.artist_albums(kendrick_uri, album_type='album')
-# albums = results["items"]
-# for album in albums:
-#     print(album['name'])
-
-results = sp.current_user_saved_tracks(limit=1)
-liked_songs = []
+results = sp.current_user_saved_tracks(limit=10)
+user_liked_songs = []
 for idx, item in enumerate(results['items']):
     song = {}
 
@@ -34,5 +28,8 @@ for idx, item in enumerate(results['items']):
     song['title'] = track['name']
     song['album'] = track['album']['name']
     song['uri'] = track['uri'].split(':')[-1]
+
+    # TODO: Grab key & BPM from another api endpoint (Spotify deprecated)
     
-    liked_songs.append(song)
+    user_liked_songs.append(song)
+    print(song)
